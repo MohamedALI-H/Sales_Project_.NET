@@ -1,0 +1,59 @@
+﻿@using Projet_Vente.Models
+@using Microsoft.AspNetCore.Identity
+
+@inject SignInManager<IdentityUser> SignInManager
+@model List<Item>
+
+<h2>Search Results</h2>
+
+<a class="btn btn-info" asp-action="Index">
+
+    Back To All Items
+</a>
+@if (ViewBag.Message != null)
+{
+    <div class="alert alert-info">@ViewBag.Message</div>
+}
+
+@if (ViewBag.Error != null)
+{
+    <div class="alert alert-danger">@ViewBag.Error</div>
+}
+
+@if (Model != null && Model.Count > 0)
+{
+    <div class="row">
+        @foreach (var item in Model)
+        {
+            var photoPath = Url.Content("~/images/" + (item.ImageUrl ?? "noimage.png"));
+
+            <div class="col-md-3 mb-4">
+                <div class="card border-primary mb-3" style="max-width: 20rem;">
+                    <div class="card-header">@item.Name</div>
+                    <div class="card-body">
+
+                        <img src="@photoPath" asp-append-version="true" height="175" width="230" />
+                        <h4 class="card-title">Price: @item.Price.ToString("F2") €</h4>
+                        <p class="card-text">@item.Description</p>
+                        <p class="card-text"><strong>Category:</strong> @item.Category?.Name</p>
+                        <div class="btn-group" role="group">
+                            <a asp-action="DetailsItem" asp-route-id="@item.Id" class="btn btn-info">View</a>
+
+                        </div>
+                        <div class="mt-2">
+                            @if (SignInManager.IsSignedIn(User))
+                            {
+                                <a asp-action="AddToCart" asp-route-id="@item.Id" class="btn btn-success">Add To Cart</a>
+                            }
+                            else
+                            {
+                                <p class="text-danger">Sign in or login to add to cart</p>
+                            }
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        }
+    </div>
+        }

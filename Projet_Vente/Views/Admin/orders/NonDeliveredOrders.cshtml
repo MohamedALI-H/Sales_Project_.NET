@@ -1,0 +1,35 @@
+﻿@model IEnumerable<Projet_Vente.Models.Order>
+
+@{
+    ViewData["Title"] = "Non-Delivered Orders";
+}
+
+<div class="container mt-5">
+    <h1 class="text-center mb-4">Non-Delivered Orders</h1>
+    <table class="table table-striped">
+        <thead>
+            <tr>
+                <th>Order ID</th>
+                <th>UserName</th>
+                <th>Order Date</th>
+                <th>Items</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var order in Model)
+            {
+                <tr>
+                    <td>@order.Id</td>
+                    <td>@order.User.UserName</td>
+                    <td>@order.OrderDate.ToString("g")</td>
+                    <td>
+                        @foreach (var item in order.OrderItems)
+                        {
+                            <span>@item.Item.Name</span><br />
+                        }
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>

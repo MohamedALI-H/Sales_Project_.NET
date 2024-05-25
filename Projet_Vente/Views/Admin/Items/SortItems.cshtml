@@ -1,0 +1,36 @@
+﻿@using Projet_Vente.Models
+@model List<Item>
+
+<h2>Sorted Items</h2>
+<a class="btn btn-info" asp-action="Items">
+
+    Back To All Items
+</a>
+<p>@ViewBag.Message</p>
+
+@if (Model != null && Model.Count > 0)
+{
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Name</th>
+                <th>Description</th>
+                <th>Price</th>
+                <th>Category</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Model)
+            {
+                <tr>
+                    <td>@item.Name</td>
+                    <td>@item.Description</td>
+                    <td>@item.Price.ToString("F2") DT</td>
+                    <td>@item.Category.Name</td>
+                    <td><a asp-action="EditItem" asp-route-id="@item.Id" class="btn btn-warning">Edit</a></td>
+                    <td><a asp-action="DeleteItem" asp-route-id="@item.Id" class="btn btn-danger">Delete</a></td>
+                </tr>
+            }
+        </tbody>
+    </table>
+}

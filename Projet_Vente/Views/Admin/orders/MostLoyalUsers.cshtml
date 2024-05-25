@@ -1,0 +1,28 @@
+﻿@model IEnumerable<Projet_Vente.Models.ViewModels.LoyalUserViewModel>
+
+@{
+    ViewData["Title"] = "Most Loyal Users";
+}
+
+<div class="container mt-5">
+    <h1 class="text-center mb-4">Most Loyal Users</h1>
+    <table class="table table-striped">
+        <thead>
+            <tr>
+                <th>User ID</th>
+                <th>UserName</th>
+                <th>Order Count</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var user in Model)
+            {
+                <tr>
+                    <td>@user.UserId</td>
+                    <td>@user.UserName</td>
+                    <td>@user.OrderCount</td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>

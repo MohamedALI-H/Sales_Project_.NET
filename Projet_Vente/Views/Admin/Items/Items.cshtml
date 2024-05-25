@@ -1,0 +1,65 @@
+﻿@using Projet_Vente.Models
+@model IEnumerable<Item>
+
+@{
+    ViewData["Title"] = "Items";
+}
+
+<div class="container-fluid">
+    <form class="d-flex mb-3 mx-3" asp-action="SearchByNameOrPrice" asp-controller="Admin" method="get" style="max-width: 100%;">
+        <input class="form-control me-sm-2" type="search" name="nameOrPrice" placeholder="Search" style="flex: 1;">
+        <button class="btn btn-secondary my-2 my-sm-0" type="submit">Search</button>
+    </form>
+
+    <div class="mb-3"></div>
+
+    <form asp-controller="Admin" asp-action="SortItems" method="get" class="mx-3">
+        <div class="form-group">
+            <select name="sortBy" id="sortBy" class="form-control" style="max-width: 100%;">
+                <option value="Ascending">Price Ascending</option>
+                <option value="Descending">Price Descending</option>
+            </select>
+        </div>
+        <input type="submit" class="btn btn-primary my-2 my-sm-0 mx-3" value="Sort">
+    </form>
+
+    <div class="container">
+        <h1>Items</h1>
+        <p>
+            <a asp-action="CreateItem" class="btn btn-primary">Create New</a>
+        </p>
+        <div class="table-responsive">
+            <table class="table table-striped table-bordered">
+                <thead class="thead-dark">
+                    <tr>
+                        <th>Id</th>
+                        <th>Name</th>
+                        <th>Description</th>
+                        <th>Price</th>
+                        <th>Category</th>
+                        <th>Actions</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var item in Model)
+                    {
+                        <tr>
+                            <td>@item.Id</td>
+                            <td>@item.Name</td>
+                            <td>@item.Description</td>
+                            <td>@item.Price.ToString("F2") DT</td>
+                            <td>@item.Category.Name</td>
+                            <td>
+                                <div class="btn-group" role="group">
+                                    <a asp-action="GetItem" asp-route-id="@item.Id" class="btn btn-info">View</a>
+                                    <a asp-action="EditItem" asp-route-id="@item.Id" class="btn btn-warning">Edit</a>
+                                    <a asp-action="DeleteItem" asp-route-id="@item.Id" class="btn btn-danger">Delete</a>
+                                </div>
+                            </td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,31 @@
+﻿@model CategoryDetailsViewModel
+
+@{
+    ViewData["Title"] = "Category Details";
+}
+
+<div class="d-flex justify-content-center">
+    <div class="container border rounded p-4" style="max-width: 600px;">
+        <h1 class="text-center">Category Details</h1>
+        <dl class="row">
+            <dt class="col-sm-3">Id</dt>
+            <dd class="col-sm-9">@Model.Category.Id</dd>
+
+            <dt class="col-sm-3">Name</dt>
+            <dd class="col-sm-9">@Model.Category.Name</dd>
+
+            <dt class="col-sm-3">Items</dt>
+            <dd class="col-sm-9">
+                <ul>
+                    @foreach (var item in Model.Items)
+                    {
+                        <li>@item.Name</li>
+                    }
+                </ul>
+            </dd>
+        </dl>
+        <p class="text-center">
+            <a asp-action="IndexCategory" class="btn btn-secondary">Back to List</a>
+        </p>
+    </div>
+</div>

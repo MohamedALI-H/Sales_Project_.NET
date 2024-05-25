@@ -1,0 +1,36 @@
+﻿@model IEnumerable<Projet_Vente.Models.ViewModels.CategoryItemCountViewModel>
+
+@{
+    ViewData["Title"] = "Admin Dashboard";
+}
+
+<div class="container mt-5">
+    <h1 class="text-center mb-4">Admin Dashboard</h1>
+
+    <canvas id="categoryChart" width="800" height="400"></canvas>
+
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script>
+        var ctx = document.getElementById('categoryChart').getContext('2d');
+        var myChart = new Chart(ctx, {
+            type: 'bar',
+            data: {
+                labels: [@Model.Select(c => "'" + c.CategoryName + "'").Aggregate((current, next) => current + "," + next)],
+                datasets: [{
+                    label: 'Number of Items',
+                    data: [@Model.Select(c => c.ItemCount)],
+                    backgroundColor: 'rgba(54, 162, 235, 0.2)',
+                    borderColor: 'rgba(54, 162, 235, 1)',
+                    borderWidth: 1
+                }]
+            },
+            options: {
+                scales: {
+                    y: {
+                        beginAtZero: true
+                    }
+                }
+            }
+        });
+    </script>
+</div>

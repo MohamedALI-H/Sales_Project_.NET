@@ -1,0 +1,36 @@
+﻿@using Projet_Vente.Models
+@model Item
+
+@{
+    ViewData["Title"] = "Item Details";
+    var photoPath = "~/images/" + (Model.ImageUrl ?? "noimage.jpg");
+}
+
+<div class="d-flex justify-content-center">
+    <div class="container border rounded p-4" style="max-width: 600px;">
+        <h1 class="text-center">@Model.Name</h1>
+
+        <dl class="row">
+            <dt class="col-sm-3">Description:</dt>
+            <dd class="col-sm-9">@Model.Description</dd>
+
+            <dt class="col-sm-3">Price:</dt>
+            <dd class="col-sm-9">@Model.Price.ToString("0.00") DT</dd>
+
+            <dt class="col-sm-3">Category:</dt>
+            <dd class="col-sm-9">@Model.Category.Name</dd>
+
+            <dt class="col-sm-3">
+                <label><b>Image</b></label>
+            </dt>
+            <dd class="col-sm-9">
+                <img src="@photoPath" asp-append-version="true" class="img-fluid rounded" style="max-height: 100px; max-width: 100px;" />
+            </dd>
+        </dl>
+
+        <div class="text-center">
+            <a asp-action="EditItem" asp-route-id="@Model?.Id" class="btn btn-primary">Edit</a>
+            <a asp-action="Items" class="btn btn-secondary">Back to List</a>
+        </div>
+    </div>
+</div>

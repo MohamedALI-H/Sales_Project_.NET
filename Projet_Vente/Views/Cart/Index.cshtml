@@ -1,0 +1,47 @@
+﻿@using Projet_Vente.Models.Repositories 
+@model List<CartItem>
+
+<div class="container">
+    <h1>Your Cart</h1>
+    @if (Model == null || !Model.Any())
+    {
+        <p>Your cart is empty.</p>
+    }
+    else
+    {
+        <form asp-action="ConfirmCart" method="post">
+            <table class="table">
+                <thead>
+                    <tr>
+                        <th>Name</th>
+                        <th>Description</th>
+                        <th>Price</th>
+                        <th>Quantity</th>
+                        <th></th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var item in Model)
+                    {
+                        <tr>
+                            <td>@item.ItemName</td>
+
+                            <td>@item.Price</td>
+                            <td>@item.Quantity</td>
+                            <td>
+                                <form asp-action="RemoveFromCart" method="post">
+                                    <input type="hidden" name="itemId" value="@item.ItemId" />
+                                    <button type="submit" class="btn btn-danger">Remove</button>
+                                </form>
+                            </td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+            <button type="submit" class="btn btn-success">Confirm Order</button>
+        </form>
+        <form asp-action="ClearCart" method="post">
+            <button type="submit" class="btn btn-warning">Clear Cart</button>
+        </form>
+    }
+</div>

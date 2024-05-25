@@ -1,0 +1,31 @@
+﻿@model CategoryDetailsViewModel
+
+@{
+    ViewData["Title"] = "Category Details";
+}
+
+<div class="container">
+    <h1>Category Details</h1>
+    <dl class="row">
+        <dt class="col-sm-3">Id</dt>
+        <dd class="col-sm-9">@Model.Category.Id</dd>
+
+        <dt class="col-sm-3">Name</dt>
+        <dd class="col-sm-9">@Model.Category.Name</dd>
+
+        <dt class="col-sm-3">Items</dt>
+        <dd class="col-sm-9">
+            <ul>
+                @foreach (var item in Model.Items)
+                {
+                    <li>@item.Name</li>
+                  <a asp-route-id="@item.Id"  class="btn btn-primary" asp-action="DetailsItem">View Item Detail</a>
+                }
+            </ul>
+        </dd>
+    </dl>
+    <p>
+
+        <a asp-action="Categories" class="btn btn-secondary">Back to List</a>
+    </p>
+</div>

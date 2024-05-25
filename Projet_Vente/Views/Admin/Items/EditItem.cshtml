@@ -1,0 +1,51 @@
+﻿@model Projet_Vente.Models.ViewModels.EditItemModel
+@{
+    ViewData["Title"] = "Edit Item";
+    var photoPath = "~/images/" + (Model.ExistingImagePath ?? "noimage.png");
+}
+
+<h1>Edit Item</h1>
+
+<form asp-action="EditItem" method="post">
+    <input type="hidden" asp-for="Id" />
+    <div class="form-group">
+        <label>Name:</label>
+        <input asp-for="Name" class="form-control" />
+    </div>
+    <div class="form-group">
+        <label>Description:</label>
+        <textarea asp-for="Description" class="form-control"></textarea>
+    </div>
+    <div class="form-group">
+        <label>Price:</label>
+        <input asp-for="Price" class="form-control" />
+    </div>
+    <div class="form-group">
+        <label>Category:</label>
+        <select asp-for="CategoryId" class="form-control" asp-items="ViewBag.CategoryId"></select>
+    </div>
+    <div class="form-group row">
+        <label asp-for="ImagePath" class="col-sm-2 col-form-label"></label>
+        <div class="col-sm-10">
+            <div class="custom-file">
+                <input asp-for="ImagePath" class="custom-file-input form-control">
+                <label class="custom-file-label">cliquer ici pour changer la photo</label>
+            </div>
+        </div>
+    </div>
+
+    <div class="form-group row col-sm-4 offset-4">
+        <img name="imageEmp" src="@photoPath" asp-append-version="true" height="100" width="100" />
+    </div>
+    <button type="submit" class="btn btn-primary">Save</button>
+
+</form>
+@section Scripts {
+    <script>$(document).ready(function () {
+            $('.custom-file-input').on("change", function () {
+                var fileName = $(this).val().split("\\").pop();
+                $(this).next('.custom-file-label').html(fileName);
+                $("#imageEmp").attr("src", "/" + fileName);
+            });
+        });</script>
+}
